@@ -1,4 +1,4 @@
-require('dotenv').config(); // Nodemon trigger
+require('dotenv').config(); // Nodemon trigger 2
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
