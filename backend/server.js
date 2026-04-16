@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json()); // To parse JSON bodies
 
 // MongoDB Connection
-mongoose.connect('mongodb+srv://marathemahika11_db_user:D8hPSOOzPqoYMW9H@mycluster.81lufwb.mongodb.net/?appName=mycluster')
+mongoose.connect('mongodb://marathemahika11_db_user:D8hPSOOzPqoYMW9H@mycluster-shard-00-00.81lufwb.mongodb.net:27017,mycluster-shard-00-01.81lufwb.mongodb.net:27017,mycluster-shard-00-02.81lufwb.mongodb.net:27017/tasktracker?ssl=true&replicaSet=atlas-mycluster-shard-0&authSource=admin&retryWrites=true&w=majority')
 .then(() => console.log('MongoDB connected...'))
 .catch(err => console.error('MongoDB connection error:', err));
 
