@@ -77,6 +77,7 @@ app.delete('/tasks/:id', async (req, res) => {
         }
 
         res.status(200).json({ message: 'Task deleted successfully' });
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server error' });
