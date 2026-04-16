@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json()); // To parse JSON bodies
 
 // MongoDB Connection
-mongoose.connect('mongodb://127.0.0.1:27017/tasktracker', { serverSelectionTimeoutMS: 2000 })
+mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/tasktracker', { serverSelectionTimeoutMS: 2000 })
 .then(() => console.log('MongoDB connected...'))
 .catch(err => console.error('MongoDB connection error:', err));
 
@@ -77,14 +77,18 @@ app.delete('/tasks/:id', async (req, res) => {
         }
 
         res.status(200).json({ message: 'Task deleted successfully' });
-
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server error' });
     }
 });
 
-// Start Server
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
+// Start Server locally
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(port, () => {
+        console.log(`Server running on port ${port}`);
+    });
+}
+
+// Export the app for Vercel serverless platform
+module.exports = app;
