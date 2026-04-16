@@ -34,6 +34,7 @@ function App() {
       setTasks([response.data.task, ...tasks]);
     } catch (error) {
       console.error('Error adding task:', error);
+      alert('Failed to connect to backend MongoDB. Make sure your server is running!');
     }
   };
 
@@ -45,6 +46,7 @@ function App() {
       setTasks(tasks.map(task => task._id === id ? response.data.task : task));
     } catch (error) {
       console.error('Error updating task:', error);
+      alert('Failed to update task across MongoDB.');
     }
   };
 
@@ -55,6 +57,7 @@ function App() {
       setTasks(tasks.filter(task => task._id !== id));
     } catch (error) {
       console.error('Error deleting task:', error);
+      alert('Failed to delete task from MongoDB.');
     }
   };
 
