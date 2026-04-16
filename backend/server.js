@@ -4,14 +4,14 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = 5005;
 
 // Middleware
 app.use(cors());
 app.use(express.json()); // To parse JSON bodies
 
 // MongoDB Connection
-mongoose.connect('mongodb://127.0.0.1:27017/tasktracker')
+mongoose.connect('mongodb+srv://marathemahika11_db_user:D8hPSOOzPqoYMW9H@mycluster.81lufwb.mongodb.net/?appName=mycluster')
 .then(() => console.log('MongoDB connected...'))
 .catch(err => console.error('MongoDB connection error:', err));
 
