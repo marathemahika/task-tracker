@@ -5,17 +5,19 @@ const TaskForm = ({ onAdd }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [deadline, setDeadline] = useState('');
+  const [priority, setPriority] = useState('Normal');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title.trim()) return;
 
-    onAdd({ title, description, deadline });
+    onAdd({ title, description, deadline, priority });
 
     // Reset fields
     setTitle('');
     setDescription('');
     setDeadline('');
+    setPriority('Normal');
   };
 
   return (
@@ -50,6 +52,17 @@ const TaskForm = ({ onAdd }) => {
             value={deadline}
             onChange={(e) => setDeadline(e.target.value)}
           />
+          <select 
+            className="form-secondary-input" 
+            style={{ width: 'auto' }}
+            value={priority}
+            onChange={(e) => setPriority(e.target.value)}
+            title="Priority"
+          >
+            <option value="Normal">Normal</option>
+            <option value="Important">Important</option>
+            <option value="Urgent">Urgent</option>
+          </select>
         </div>
       </form>
     </div>

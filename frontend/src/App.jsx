@@ -12,6 +12,8 @@ const API_URL = import.meta.env.PROD
 function App() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterStatus, setFilterStatus] = useState('All');
 
   // Fetch tasks
   useEffect(() => {
@@ -69,22 +71,62 @@ function App() {
     }
   };
 
+  const filteredTasks = tasks.filter(task => {
+    const matchesSearch = task.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFilter = filterStatus === 'All' || task.status === filterStatus;
+    return matchesSearch && matchesFilter;
+  });
+
+  const completedCount = tasks.filter(t => t.status === 'Completed').length;
+  const progressPercent = tasks.length ? Math.round((completedCount / tasks.length) * 100) : 0;
+
   return (
     <div className="app-container">
       <header className="header">
         <Layout size={48} color="var(--accent-primary)" style={{ marginBottom: '1rem' }} />
         <h1>Task Tracker</h1>
         <p>Manage your daily goals with focus</p>
+        
+        {tasks.length > 0 && (
+          <div className="task-list-progress">
+            <div className="progress-text">
+              <span>{completedCount} of {tasks.length} tasks completed</span>
+              <span>{progressPercent}%</span>
+            </div>
+            <div className="progress-bar-container">
+              <div className="progress-bar-fill" style={{ width: `${progressPercent}%` }}></div>
+            </div>
+          </div>
+        )}
       </header>
 
       <main>
         <TaskForm onAdd={addTask} />
 
+        <div className="filter-controls">
+          <input 
+            type="text" 
+            placeholder="Search tasks by title..." 
+            className="search-input form-input"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <select 
+            className="status-filter form-secondary-input"
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+          >
+            <option value="All">All Statuses</option>
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+
         {loading ? (
           <div className="empty-state">Loading tasks...</div>
         ) : (
           <TaskList 
-            tasks={tasks} 
+            tasks={filteredTasks} 
             onToggle={toggleStatus} 
             onDelete={deleteTask} 
           />

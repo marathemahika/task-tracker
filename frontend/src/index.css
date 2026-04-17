@@ -372,4 +372,120 @@ body::after {
   color: var(--text-light);
   font-size: 0.95rem;
   font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- Dynamic Enhancements --- */
+
+/* Filter Controls */
+.filter-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+.search-input {
+  flex: 2;
+  background-color: var(--bg-card);
+}
+
+.status-filter {
+  flex: 1;
+  min-width: 120px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-full);
+  padding: 0.5rem 1rem;
+}
+
+/* Progress Bar */
+.task-list-progress {
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 300px;
+  margin: 1.5rem auto 0;
+}
+
+.progress-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-bottom: 0.4rem;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 6px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--accent-muted-blue);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-smooth);
+}
+
+/* Priority Indicators */
+.priority-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.priority-normal { } /* Blue is default or none because background handles it nicely, actually let's just make it subtle blue */
+.priority-important { background-color: #ffd166; } /* Amber */
+.priority-urgent { background-color: #ef476f; } /* Soft Red */
+.priority-normal { background-color: #118ab2; opacity: 0.6; } /* Blue */
+
+/* Expandable Task Details */
+.task-title-row {
+  user-select: none;
+}
+
+.task-details {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all var(--transition-smooth);
+  margin-top: 0;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.task-details.expanded {
+  max-height: 200px; /* Arbitrary large height to allow transition */
+  opacity: 1;
+  margin-top: 0.5rem;
+}
+
+/* Overdue Styling */
+.task-overdue {
+  background-color: rgba(239, 71, 111, 0.04);
+  border-color: rgba(239, 71, 111, 0.15);
+}
+
+.overdue-text {
+  color: #ef476f;
+  font-weight: 500;
+}
+
+.task-deadline-badge {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--text-light);
+  margin-left: auto; /* Push to right slightly before chevron */
+}
+
+.task-deadline-badge.overdue-text {
+  background: rgba(239, 71, 111, 0.08);
 }

@@ -21,13 +21,13 @@ const Task = require('./models/Task');
 // CREATE a task
 app.post('/tasks', async (req, res) => {
     try {
-        const { title, description, deadline, status } = req.body;
+        const { title, description, deadline, status, priority } = req.body;
         
         if (!title) {
             return res.status(400).json({ message: 'Title is required' });
         }
 
-        const newTask = new Task({ title, description, deadline, status });
+        const newTask = new Task({ title, description, deadline, status, priority });
         const savedTask = await newTask.save();
         res.status(201).json({ message: 'Task added successfully', task: savedTask });
     } catch (err) {

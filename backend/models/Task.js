@@ -13,6 +13,11 @@ const TaskSchema = new mongoose.Schema({
     deadline: {
         type: Date
     },
+    priority: {
+        type: String,
+        enum: ['Normal', 'Important', 'Urgent'],
+        default: 'Normal'
+    },
     status: {
         type: String,
         enum: ['Pending', 'Completed'],
