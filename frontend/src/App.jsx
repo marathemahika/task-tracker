@@ -19,7 +19,13 @@ function App() {
   const fetchTasks = async () => {
     try {
       const response = await axios.get(API_URL);
-      setTasks(response.data);
+      if (Array.isArray(response.data)) {
+        setTasks(response.data);
+      } else {
+        console.error('Invalid data format received:', response.data);
+        alert('Could not fetch tasks. The API might not be configured correctly.');
+        setTasks([]); // Fallback to avoid crashing
+      }
     } catch (error) {
       console.error('Error fetching tasks:', error);
     } finally {
